@@ -375,6 +375,11 @@ options:
           by the system.
         required: false
         type: str
+      nicType:
+        description:
+        - set to GVNIC if want that.
+        returned: success
+        type: str
       subnetwork:
         description:
         - Reference to a VPC network.
@@ -948,6 +953,11 @@ networkInterfaces:
         by the system.
       returned: success
       type: str
+    nicType:
+      description:
+      - set to GVNIC if want that.
+      returned: success
+      type: str
     subnetwork:
       description:
       - Reference to a VPC network.
@@ -1157,6 +1167,7 @@ def main():
                     alias_ip_ranges=dict(type='list', elements='dict', options=dict(ip_cidr_range=dict(type='str'), subnetwork_range_name=dict(type='str'))),
                     network=dict(type='dict'),
                     network_ip=dict(type='str'),
+                    nicType=dict(type='str'),
                     subnetwork=dict(type='dict'),
                 ),
             ),
@@ -1697,6 +1708,7 @@ class InstanceNetworkinterfacesArray(object):
                 u'network': replace_resource_dict(item.get(u'network', {}), 'selfLink'),
                 u'networkIP': item.get('network_ip'),
                 u'subnetwork': replace_resource_dict(item.get(u'subnetwork', {}), 'selfLink'),
+                u'nicType': item.get('network_ip'),
             }
         )
 
@@ -1708,6 +1720,7 @@ class InstanceNetworkinterfacesArray(object):
                 u'network': item.get(u'network'),
                 u'networkIP': item.get(u'networkIP'),
                 u'subnetwork': item.get(u'subnetwork'),
+                u'nicType': item.get('network_ip'),
             }
         )
 
